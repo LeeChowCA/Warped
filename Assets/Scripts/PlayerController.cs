@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //[SerializeField] Animator anim;
+    [SerializeField] Animator anim;
 
     //// movement variables
     [SerializeField] Rigidbody2D rbody;
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         horizInput = Input.GetAxis("Horizontal");   // read (and store) horizontal input
         bool isRunning = horizInput > 0.01f || horizInput < -0.01f;
-        //anim.SetBool("isRunning", isRunning);
+        anim.SetBool("isRunning", isRunning);
         //Mathf.Abs(horizInput);
 
         // check if we're grounded
