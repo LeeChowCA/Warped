@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         // check if we're grounded
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayerMask) && rbody.linearVelocity.y < 0.01;
         Debug.Log("Is Grounded: " + isGrounded);
-        //anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("isGrounded", isGrounded);
         if (isGrounded)
         {
             jumpAvailable = jumpMax;
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
             yVel = initialJumpVelocity;
             jumpAvailable--;
             jumpPressed = false;
-            //anim.SetTrigger("jump");
+            anim.SetTrigger("jump");
         }// use existing y velocity
 
         Vector3 movement = new Vector2(xVel, yVel);
