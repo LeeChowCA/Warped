@@ -31,12 +31,24 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("shoot");
         cooldownTimer = 0f;
 
-        lasers[0].transform.position = firePoint.position;
+        lasers[FindFireball()].transform.position = firePoint.position;
         //lasers[0].SetActive(true); // Ensure the laser is active
         Debug.Log("Laser activated at position: " + firePoint.position);
         float direction = playerController.facingRight ? 1f : -1f;
         Debug.Log("Laser direction: " + direction);
-        lasers[0].GetComponent<Projectile>().SetDirection(direction);
+        lasers[FindFireball()].GetComponent<Projectile>().SetDirection(direction);
+    }
+
+    private int FindFireball()
+    {
+        for (int i = 0; i < lasers.Length; i++)
+        {
+            if (!lasers[i].activeInHierarchy)
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 }
 
