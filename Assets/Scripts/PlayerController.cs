@@ -23,10 +23,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayerMask;
     float groundCheckRadius = 0.3f;
 
-    int jumpMax = 2;
+    int jumpMax = 1;
     int jumpAvailable = 0;
 
     bool facingRight = true;
+
+    bool shootPressed = false;
 
 
     void Start()
@@ -56,9 +58,12 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isRunning", isRunning);
         //Mathf.Abs(horizInput);
 
+        bool isDucking = Input.GetAxis("Vertical") < -0.01f;
+        anim.SetBool("isDucking", isDucking); 
+
         // check if we're grounded
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayerMask) && rbody.linearVelocity.y < 0.01;
-        Debug.Log("Is Grounded: " + isGrounded);
+        //Debug.Log("Is Grounded: " + isGrounded);
         anim.SetBool("isGrounded", isGrounded);
         if (isGrounded)
         {
@@ -76,6 +81,11 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+
+        if (Input.GetButtonDown("Fire1") && !isRunning) {
+            shootPressed = true;
+        }
+
     }
 
     private void FixedUpdate()
@@ -91,6 +101,12 @@ public class PlayerController : MonoBehaviour
             jumpPressed = false;
             anim.SetTrigger("jump");
         }// use existing y velocity
+
+        if (shootPressed)
+        {
+            anim.SetTrigger("shoot");
+            shootPressed = false;
+        }
 
         Vector3 movement = new Vector2(xVel, yVel);
         rbody.linearVelocity = movement;
