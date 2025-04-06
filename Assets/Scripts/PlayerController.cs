@@ -26,9 +26,11 @@ public class PlayerController : MonoBehaviour
     int jumpMax = 1;
     int jumpAvailable = 0;
 
-    bool facingRight = true;
+    public bool facingRight = true;
 
     bool shootPressed = false;
+
+    bool isDucking = false;
 
 
     void Start()
@@ -58,8 +60,8 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isRunning", isRunning);
         //Mathf.Abs(horizInput);
 
-        bool isDucking = Input.GetAxis("Vertical") < -0.01f;
-        anim.SetBool("isDucking", isDucking); 
+        isDucking = Input.GetAxis("Vertical") < -0.01f;
+        anim.SetBool("isDucking", isDucking);
 
         // check if we're grounded
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayerMask) && rbody.linearVelocity.y < 0.01;
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && jumpAvailable > 0)
         {
             jumpPressed = true;
-            Debug.Log("Jump pressed");
+            //Debug.Log("Jump pressed");
         }
 
         if ((!facingRight && horizInput > 0.01f) || (facingRight && horizInput < -0.01f))
@@ -82,7 +84,8 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        if (Input.GetButtonDown("Fire1") && !isRunning) {
+        if (Input.GetButtonDown("Fire1") && !isRunning)
+        {
             shootPressed = true;
         }
 
@@ -115,5 +118,10 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
+    }
+
+    public bool canAttack()
+    {
+        return horizInput == 0 && !isDucking && isGrounded;
     }
 }

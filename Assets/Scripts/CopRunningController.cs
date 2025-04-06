@@ -22,11 +22,11 @@ public class CopController : MonoBehaviour
         // Perform a raycast to detect the player
         RaycastHit2D hit = Physics2D.Raycast(transform.position, player.position - transform.position, detectionRange, detectionLayer);
 
-        Debug.Log("Raycast hit: " + hit.collider?.name); // Log the name of the object hit by the raycast
+        //Debug.Log("Raycast hit: " + hit.collider?.name); // Log the name of the object hit by the raycast
         // Check if the raycast hit the player
         if (hit.collider != null && hit.collider.transform == player)
         {
-            Debug.Log("Player detected!");
+            //Debug.Log("Player detected!");
             // Move the cop towards the player
             Vector2 direction = (player.position - transform.position).normalized;
             rbody.linearVelocity = direction * moveSpeed;
