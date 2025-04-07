@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     bool isDucking = false;
 
+    private int currentHealth = 1;
+
 
     void Start()
     {
@@ -123,5 +125,25 @@ public class PlayerController : MonoBehaviour
     public bool canAttack()
     {
         return horizInput == 0 && !isDucking && isGrounded;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        anim.SetTrigger("hurt");
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        anim.SetTrigger("die");
+        // Disable player controls
+        this.enabled = false;
+        // Notify GameManager
+        GameManager.instance.PlayerDied();
     }
 }

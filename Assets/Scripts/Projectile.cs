@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
 
+    private float lifeTime; // Time before the projectile is deactivated
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -21,6 +23,9 @@ public class Projectile : MonoBehaviour
             return;
         float movementSpeed = speed * Time.deltaTime * direction;
         transform.Translate(movementSpeed, 0, 0);
+
+        lifeTime += Time.deltaTime;
+        if(lifeTime > 5) gameObject.SetActive(false); // Deactivate the projectile after 5 seconds
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,10 +35,13 @@ public class Projectile : MonoBehaviour
             hit = true;
             boxCollider.enabled = false;
             anim.SetTrigger("explode");
+
+            Destroy(collision.gameObject); // Destroy the enemy
         }
     }
 
     public void SetDirection(float _direction) {
+        lifeTime = 0;
         direction = _direction;
         gameObject.SetActive(true);
         hit = false; 
