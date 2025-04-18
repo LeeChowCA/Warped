@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private CinemachineCamera virtualCamera; // Updated to use CinemachineCamera  
     private GameObject player;
 
     private void Awake()
@@ -33,11 +35,13 @@ public class GameManager : MonoBehaviour
             Destroy(player);
         }
         player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
+        virtualCamera.Follow = player.transform; // Set the camera to follow the new player instance
+        virtualCamera.LookAt = player.transform; // Set the camera to look at the new player instance
     }
 
     public void PlayerDied()
     {
-        // Handle player death (e.g., show game over screen, reduce lives, etc.)
-        Invoke("RespawnPlayer", 2f); // Respawn after a delay
+        // Handle player death (e.g., show game over screen, reduce lives, etc.)  
+        Invoke("RespawnPlayer", 2f); // Respawn after a delay  
     }
 }
