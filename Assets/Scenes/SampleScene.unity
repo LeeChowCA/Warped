@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 36820259}
   - component: {fileID: 36820258}
   - component: {fileID: 36820260}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cop1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1297,6 +1297,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &251769019
 Rigidbody2D:
   serializedVersion: 5
@@ -3273,6 +3277,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &744591706
 Rigidbody2D:
   serializedVersion: 5
@@ -3611,6 +3619,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &913181052
 Rigidbody2D:
   serializedVersion: 5
@@ -3913,6 +3925,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &987795014
 Rigidbody2D:
   serializedVersion: 5
@@ -4130,6 +4146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1020515263
 Rigidbody2D:
   serializedVersion: 5
@@ -4260,6 +4280,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1054159025
 Rigidbody2D:
   serializedVersion: 5
@@ -4881,6 +4905,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1184552729
 Rigidbody2D:
   serializedVersion: 5
@@ -6728,6 +6756,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1648439699
 Rigidbody2D:
   serializedVersion: 5
@@ -7830,6 +7862,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 0
+  whatDestroysBullet:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &2016860947
 Rigidbody2D:
   serializedVersion: 5

@@ -1,10 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject[] lasers;
+    [SerializeField] private GameObject bullet;
+    private GameObject bulletInst;
 
     private Animator anim;
     private PlayerController playerController;
@@ -31,24 +34,14 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("shoot");
         cooldownTimer = 0f;
 
-        lasers[FindFireball()].transform.position = firePoint.position;
-        //lasers[0].SetActive(true); // Ensure the laser is active
+        bulletInst = Instantiate(bullet, firePoint.position, Quaternion.identity);
+
         Debug.Log("Laser activated at position: " + firePoint.position);
         float direction = playerController.facingRight ? 1f : -1f;
         Debug.Log("Laser direction: " + direction);
-        lasers[FindFireball()].GetComponent<Projectile>().SetDirection(direction);
+        bulletInst.GetComponent<Projectile>().SetDirectionAndSpeed(direction);
+        //Messenger<float>.Broadcast(GameEvent.PlayerAttack, direction);
     }
 
-    private int FindFireball()
-    {
-        for (int i = 0; i < lasers.Length; i++)
-        {
-            if (!lasers[i].activeInHierarchy)
-            {
-                return i;
-            }
-        }
-        return 0;
-    }
 }
 
