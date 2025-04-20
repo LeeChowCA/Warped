@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CopController : MonoBehaviour
 {
-    public Transform player; // Reference to the player's transform
+    private Transform playerTransform; // Reference to the player's transform
     public float detectionRange = 10f; // Range within which the cop can detect the player
     public float moveSpeed = 4.5f; // Speed at which the cop moves towards the player
     public LayerMask detectionLayer; // LayerMask to specify which layers the raycast should hit
@@ -11,24 +11,25 @@ public class CopController : MonoBehaviour
     private Rigidbody2D rbody;
     private bool facingRight = false; // Track the cop's facing direction
 
-    void Start()
+    void Awake()
     {
         // Get the Rigidbody2D component
         rbody = GetComponent<Rigidbody2D>();
+        playerTransform = GameManager.instance.GetPlayerTransform(); // Get the player's transform from the GameManager
     }
 
     void FixedUpdate()
     {
         // Perform a raycast to detect the player
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.position - transform.position, detectionRange, detectionLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerTransform.position - transform.position, detectionRange, detectionLayer);
 
         //Debug.Log("Raycast hit: " + hit.collider?.name); // Log the name of the object hit by the raycast
         // Check if the raycast hit the player
-        if (hit.collider != null && hit.collider.transform == player)
+        if (hit.collider != null && hit.collider.transform == playerTransform)
         {
-            //Debug.Log("Player detected!");
+            Debug.Log("Player detected!");
             // Move the cop towards the player
-            Vector2 direction = (player.position - transform.position).normalized;
+            Vector2 direction = (playerTransform.position - transform.position).normalized;
             rbody.linearVelocity = direction * moveSpeed;
 
             // Flip the cop's transform based on the player's position
@@ -58,9 +59,11 @@ public class CopController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (playerTransform == null) return; // if it's null, don't draw anything
+
         // Draw a line to visualize the raycast
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + (player.position - transform.position).normalized * detectionRange);
+        Gizmos.DrawLine(transform.position, transform.position + (playerTransform.position - transform.position).normalized * detectionRange);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

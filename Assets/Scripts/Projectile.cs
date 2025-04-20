@@ -115,8 +115,9 @@ public class Projectile : MonoBehaviour
     //    transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
     //}
 
-    //private void Deactivate() { 
-    //    Debug.Log("Deactived");
-    //    gameObject.SetActive(false);
-    //}
+    private void Deactivate()
+    {
+        Debug.Log("Deactived");
+        gameObject.SetActive(false);
+    }
 }

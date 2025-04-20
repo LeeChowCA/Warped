@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     //// movement variables
     [SerializeField] Rigidbody2D rbody;
     private float horizInput;
-    private float moveSpeed = 4.5f;
+    private float moveSpeed = 4.0f;
     private float toNewtons = 100f;
 
     //// jump variables

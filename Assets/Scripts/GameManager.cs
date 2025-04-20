@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineCamera virtualCamera; // Updated to use CinemachineCamera  
     private GameObject player;
 
+    [SerializeField] GameObject copPrefab;
+    [SerializeField] private Transform[] copSpawnPoints;
+    [SerializeField] private int numOfCops = 5;
+
+
+
     private void Awake()
     {
         if (instance == null)
@@ -26,6 +32,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         RespawnPlayer();
+        SpawnCops();
     }
 
     public void RespawnPlayer()
@@ -43,5 +50,37 @@ public class GameManager : MonoBehaviour
     {
         // Handle player death (e.g., show game over screen, reduce lives, etc.)  
         Invoke("RespawnPlayer", 2f); // Respawn after a delay  
+    }
+
+    public Transform GetPlayerTransform()
+    {
+        return player.transform;
+    }
+
+    private void SpawnCops()
+    {
+
+        if (copSpawnPoints.Length == 0)
+        {
+            Debug.LogWarning("No cop spawn points assigned!");
+            return;
+        }
+        if (numOfCops > copSpawnPoints.Length)
+        {
+            Debug.LogWarning("Number of cops exceeds available spawn points. Adjusting to maximum available.");
+            numOfCops = copSpawnPoints.Length;
+        }
+
+        if (copPrefab == null)
+        {
+            Debug.LogWarning("Cop prefab is not assigned!");
+            return;
+        }
+
+        for (int i = 0; i < numOfCops; i++)
+        {
+            Transform spawnPoint = copSpawnPoints[i];
+            Instantiate(copPrefab, spawnPoint.position, Quaternion.identity);
+        }
     }
 }
