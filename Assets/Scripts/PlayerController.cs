@@ -141,6 +141,13 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         anim.SetTrigger("die");
+
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = false; // Disable all colliders
+        }
+
         // Disable player controls
         this.enabled = false;
         // Notify GameManager

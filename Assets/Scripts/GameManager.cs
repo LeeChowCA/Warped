@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] copSpawnPoints;
     [SerializeField] private int numOfCops = 5;
 
+    [SerializeField] GameObject eggTurretPrefab;
+    [SerializeField] private Transform[] eggTurretSpawnPoints;
+    [SerializeField] private int numOfEggTurrets = 1;
 
 
     private void Awake()
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         RespawnPlayer();
         SpawnCops();
+        SpawnEggTurret();
     }
 
     public void RespawnPlayer()
@@ -43,7 +47,7 @@ public class GameManager : MonoBehaviour
         }
         player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
         virtualCamera.Follow = player.transform; // Set the camera to follow the new player instance
-        virtualCamera.LookAt = player.transform; // Set the camera to look at the new player instance
+        //virtualCamera.LookAt = player.transform; // Set the camera to look at the new player instance
     }
 
     public void PlayerDied()
@@ -81,6 +85,33 @@ public class GameManager : MonoBehaviour
         {
             Transform spawnPoint = copSpawnPoints[i];
             Instantiate(copPrefab, spawnPoint.position, Quaternion.identity);
+        }
+    }
+
+    private void SpawnEggTurret()
+    {
+        if (eggTurretSpawnPoints.Length == 0)
+        {
+            Debug.LogWarning("No egg turret spawn points assigned!");
+            return;
+        }
+
+        if (numOfEggTurrets > eggTurretSpawnPoints.Length)
+        {
+            Debug.LogWarning("Number of egg turrets exceeds available spawn points. Adjusting to maximum available.");
+            numOfEggTurrets = eggTurretSpawnPoints.Length;
+        }
+
+        if (eggTurretPrefab == null)
+        {
+            Debug.LogWarning("Egg turret prefab is not assigned!");
+            return;
+        }
+
+        for (int i = 0; i < numOfEggTurrets; i++)
+        {
+            Transform spawnPoint = eggTurretSpawnPoints[i];
+            Instantiate(eggTurretPrefab, spawnPoint.position, Quaternion.identity);
         }
     }
 }

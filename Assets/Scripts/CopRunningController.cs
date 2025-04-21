@@ -27,7 +27,7 @@ public class CopController : MonoBehaviour
         // Check if the raycast hit the player
         if (hit.collider != null && hit.collider.transform == playerTransform)
         {
-            Debug.Log("Player detected!");
+            //Debug.Log("Player detected!");
             // Move the cop towards the player
             Vector2 direction = (playerTransform.position - transform.position).normalized;
             rbody.linearVelocity = direction * moveSpeed;
@@ -70,6 +70,7 @@ public class CopController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Player hit by cop!");
             PlayerController playerController = collision.GetComponent<PlayerController>();
             if (playerController != null)
             {
