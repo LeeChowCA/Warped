@@ -5,6 +5,7 @@ public class EggTurretController : MonoBehaviour
     private Animator anim;
     private Transform playerTransform;
     public float detectionRange = 10f;
+    public LayerMask detectionLayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -21,20 +22,36 @@ public class EggTurretController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        DetectPlayer();
-    }
-
-    private void DetectPlayer()
-    {
-        // Perform a raycast to detect the player
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, 10f, LayerMask.GetMask("Player"));
-        // Check if the raycast hit the player
-        if (hit.collider != null)
+        if (PlayerWithinRange())
         {
-            // Player detected, trigger the shooting animation
-            anim.SetTrigger("shoot");
+            //Debug.Log("Player within range");
+            SetEggTurretToShoot();
         }
     }
+
+    public bool PlayerWithinRange()
+    {
+        // Perform a raycast to detect the player
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerTransform.position - transform.position, detectionRange, detectionLayer);
+        // Check if the raycast hit the player
+        if (hit.collider != null && hit.collider.transform == playerTransform)
+        {
+            //Debug.Log("Player detected by Egg Turret!");
+            // Player detected, trigger the shooting animation
+            return true;
+        }
+        else return false;
+    }
+
+    private void SetEggTurretToShoot()
+    {
+        // This method is called from the animation event
+        // You can add your shooting logic here
+        //Debug.Log("Egg turret is shooting!");
+        anim.SetTrigger("shoot");
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

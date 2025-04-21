@@ -4635,7 +4635,7 @@ MonoBehaviour:
   - {fileID: 1097703353}
   - {fileID: 156592129}
   numOfCops: 5
-  eggTurretPrefab: {fileID: 7284593644455491597, guid: ba6e5575305d8dc44b122ac4a8f79adb, type: 3}
+  eggTurretPrefab: {fileID: 4511229321359021510, guid: f41b077c7f0387a4a8537d4e25574e78, type: 3}
   eggTurretSpawnPoints:
   - {fileID: 1632399262}
   numOfEggTurrets: 5
