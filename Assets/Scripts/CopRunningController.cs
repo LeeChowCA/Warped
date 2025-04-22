@@ -18,8 +18,25 @@ public class CopController : MonoBehaviour
         playerTransform = GameManager.instance.GetPlayerTransform(); // Get the player's transform from the GameManager
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnPlayerRespawned += UpdatePlayerTransform; // Subscribe to the event
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPlayerRespawned -= UpdatePlayerTransform; // Unsubscribe from the event
+    }
+
+    private void UpdatePlayerTransform(Transform newPlayerTransform)
+    {
+        playerTransform = newPlayerTransform; // Update the playerTransform reference
+    }
+
     void FixedUpdate()
     {
+        if (playerTransform == null) return; // Ensure playerTransform is valid
+
         // Perform a raycast to detect the player
         RaycastHit2D hit = Physics2D.Raycast(transform.position, playerTransform.position - transform.position, detectionRange, detectionLayer);
 

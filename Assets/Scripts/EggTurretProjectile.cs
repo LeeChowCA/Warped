@@ -36,7 +36,7 @@ public class EggTurretProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        anim.SetTrigger("explode");
+        //anim.SetTrigger("explode");
         Debug.Log("explode");
         if ((whatDestroysBullet.value & (1 << collision.gameObject.layer)) > 0)
         {
@@ -47,11 +47,15 @@ public class EggTurretProjectile : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            anim.SetTrigger("explode");
-            Destroy(collision.gameObject); // Destroy the enemy
+            //anim.SetTrigger("explode");
+            PlayerController playerController = collision.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.TakeDamage(1);
+            }
         }
     }
-
+     
     public void SetSpeed()
     {
         rb.linearVelocity = new Vector2(speed, 0);

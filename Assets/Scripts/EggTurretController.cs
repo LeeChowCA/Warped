@@ -14,6 +14,21 @@ public class EggTurretController : MonoBehaviour
         playerTransform = GameManager.instance.GetPlayerTransform();
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnPlayerRespawned += UpdatePlayerTransform; // Subscribe to the event
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPlayerRespawned -= UpdatePlayerTransform; // Unsubscribe from the event
+    }
+
+    private void UpdatePlayerTransform(Transform newPlayerTransform)
+    {
+        playerTransform = newPlayerTransform; // Update the playerTransform reference
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -31,6 +46,8 @@ public class EggTurretController : MonoBehaviour
 
     public bool PlayerWithinRange()
     {
+
+
         // Perform a raycast to detect the player
         RaycastHit2D hit = Physics2D.Raycast(transform.position, playerTransform.position - transform.position, detectionRange, detectionLayer);
         // Check if the raycast hit the player

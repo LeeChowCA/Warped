@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        anim.SetTrigger("hurt");
+        anim.SetTrigger("die");
 
         if (currentHealth <= 0)
         {

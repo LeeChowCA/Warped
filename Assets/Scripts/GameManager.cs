@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject eggTurretPrefab;
     [SerializeField] private Transform[] eggTurretSpawnPoints;
     [SerializeField] private int numOfEggTurrets = 1;
+
+    public static event Action<Transform> OnPlayerRespawned;
 
 
     private void Awake()
@@ -47,7 +50,9 @@ public class GameManager : MonoBehaviour
         }
         player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
         virtualCamera.Follow = player.transform; // Set the camera to follow the new player instance
-        //virtualCamera.LookAt = player.transform; // Set the camera to look at the new player instance
+                                                 //virtualCamera.LookAt = player.transform; // Set the camera to look at the new player instance
+
+        OnPlayerRespawned?.Invoke(player.transform);
     }
 
     public void PlayerDied()
