@@ -118,6 +118,13 @@ public class PlayerController : MonoBehaviour
             shootPressed = true;
         }
 
+
+        // Check if the player has fallen below the ground
+        if (transform.position.y < -9)
+        {
+            Debug.Log("Player fell off the ground!");
+            Die(); // Call the Die method to handle death
+        }
     }
 
     private void FixedUpdate()
