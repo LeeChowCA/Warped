@@ -35,7 +35,9 @@ public class PlayerAttack : MonoBehaviour
     {
         SoundManager soundManager = Object.FindFirstObjectByType<SoundManager>(); // Updated to use FindFirstObjectByType  
         soundManager.PlayPlayerSfx(sfxPlayerShoot);
+
         anim.SetTrigger("shoot");
+        //Debug.Log("Shoot animation triggered");
         cooldownTimer = 0f;
 
         bulletInst = Instantiate(bullet, firePoint.position, Quaternion.identity);

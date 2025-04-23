@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a53f3d145f31840ad802a9582fa47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 0
+  attackCooldown: 1
   firePoint: {fileID: 1669348107411559784}
   bullet: {fileID: 7132289767122563525, guid: e49481b08dcd81f4ab4494baf0df5f7d, type: 3}
   sfxPlayerShoot: {fileID: 8300000, guid: 11659cc734d142c45ade5af616b6323a, type: 3}

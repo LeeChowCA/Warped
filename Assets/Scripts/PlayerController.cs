@@ -34,6 +34,13 @@ public class PlayerController : MonoBehaviour
 
     private int currentHealth = 1;
 
+    // Collider variables
+    private CapsuleCollider2D capsuleCollider;
+    private Vector2 originalColliderSize;
+    private Vector2 originalColliderOffset;
+    private Vector2 duckingColliderSize;
+    private Vector2 duckingColliderOffset;
+
 
     void Start()
     {
@@ -45,6 +52,15 @@ public class PlayerController : MonoBehaviour
 
         // calculate jump velocity (upward motion)
         initialJumpVelocity = (2.0f * jumpHeight) / jumpTimeToApex;
+
+        // Get the BoxCollider2D and store its original size and offset
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
+        originalColliderSize = capsuleCollider.size;
+        originalColliderOffset = capsuleCollider.offset;
+
+        // Set the ducking collider size and offset (half the height)
+        duckingColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y / 2);
+        duckingColliderOffset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - (originalColliderSize.y / 4));
     }
 
 
@@ -64,6 +80,17 @@ public class PlayerController : MonoBehaviour
 
         isDucking = Input.GetAxis("Vertical") < -0.01f;
         anim.SetBool("isDucking", isDucking);
+
+        if (isDucking)
+        {
+            capsuleCollider.size = duckingColliderSize;
+            capsuleCollider.offset = duckingColliderOffset;
+        }
+        else
+        {
+            capsuleCollider.size = originalColliderSize;
+            capsuleCollider.offset = originalColliderOffset;
+        }
 
         // check if we're grounded
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayerMask) && rbody.linearVelocity.y < 0.01;
@@ -107,11 +134,11 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("jump");
         }// use existing y velocity
 
-        if (shootPressed)
-        {
-            anim.SetTrigger("shoot");
-            shootPressed = false;
-        }
+        //if (shootPressed)
+        //{
+        //    anim.SetTrigger("shoot");
+        //    shootPressed = false;
+        //}
 
         Vector3 movement = new Vector2(xVel, yVel);
         rbody.linearVelocity = movement;

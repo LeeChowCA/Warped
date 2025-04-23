@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject copPrefab;
     [SerializeField] private Transform[] copSpawnPoints;
-    [SerializeField] private int numOfCops = 5;
+    [SerializeField] private int numOfCops = 12;
 
     [SerializeField] GameObject eggTurretPrefab;
     [SerializeField] private Transform[] eggTurretSpawnPoints;
-    [SerializeField] private int numOfEggTurrets = 1;
+    [SerializeField] private int numOfEggTurrets = 13;
 
     public static event Action<Transform> OnPlayerRespawned;
 
