@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager ui;
     private int score = 0;
 
+    [SerializeField] private GameOverPop gameOverPopup;
+
     //[SerializeField] private GameObject spawnEffectPrefab;
 
     private void Awake()
@@ -34,7 +36,6 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -80,7 +81,8 @@ public class GameManager : MonoBehaviour
     public void PlayerDied()
     {
         // Handle player death (e.g., show game over screen, reduce lives, etc.)  
-        Invoke("RespawnPlayer", 2f); // Respawn after a delay  
+        //Invoke("RespawnPlayer", 2f); // Respawn after a delay  
+        gameOverPopup.ShowWithDelay();
     }
 
     public Transform GetPlayerTransform()

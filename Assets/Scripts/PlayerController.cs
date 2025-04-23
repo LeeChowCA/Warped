@@ -187,4 +187,14 @@ public class PlayerController : MonoBehaviour
         // Notify GameManager
         GameManager.instance.PlayerDied();
     }
+
+    public void EnableControls()
+    {
+        this.enabled = true; // Enable the PlayerController script
+    }
+
+    public void DisableControls()
+    {
+        this.enabled = false; // Disable the PlayerController script
+    }
 }
