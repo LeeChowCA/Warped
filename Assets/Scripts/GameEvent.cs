@@ -9,4 +9,7 @@ public class GameEvent
 
     public const string GAME_ACTIVE = "GAME_ACTIVE";
     public const string GAME_INACTIVE = "GAME_INACTIVE";
+
+    public const string ENEMY_DEAD = "ENEMY_DEAD";
+
 }

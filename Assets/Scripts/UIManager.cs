@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
     {
         if (score != null)
         {
-            score.text = "Score:" + newScore.ToString();
+            score.text = "Score: " + newScore.ToString();
         }
     }
 

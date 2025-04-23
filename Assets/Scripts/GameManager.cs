@@ -1,6 +1,7 @@
 using System;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,9 +22,13 @@ public class GameManager : MonoBehaviour
 
     public static event Action<Transform> OnPlayerRespawned;
 
+    [SerializeField] private UIManager ui;
+    private int score = 0;
 
     private void Awake()
     {
+        Messenger.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+
         if (instance == null)
         {
             instance = this;
@@ -35,8 +40,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+    }
+
     private void Start()
     {
+        ui.UpdateScore(score);
+
         RespawnPlayer();
         SpawnCops();
         SpawnEggTurret();
@@ -118,5 +130,11 @@ public class GameManager : MonoBehaviour
             Transform spawnPoint = eggTurretSpawnPoints[i];
             Instantiate(eggTurretPrefab, spawnPoint.position, Quaternion.identity);
         }
+    }
+
+    private void OnEnemyDead()
+    {
+        score++;
+        ui.UpdateScore(score);
     }
 }

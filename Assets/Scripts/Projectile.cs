@@ -49,6 +49,7 @@ public class Projectile : MonoBehaviour
         {
             anim.SetTrigger("explode");
             Destroy(collision.gameObject); // Destroy the enemy
+            Messenger.Broadcast(GameEvent.ENEMY_DEAD);
         }
     }
 
