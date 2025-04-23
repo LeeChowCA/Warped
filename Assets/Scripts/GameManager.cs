@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager ui;
     private int score = 0;
 
+    //[SerializeField] private GameObject spawnEffectPrefab;
+
     private void Awake()
     {
         Messenger.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
@@ -62,7 +64,15 @@ public class GameManager : MonoBehaviour
         }
         player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
         virtualCamera.Follow = player.transform; // Set the camera to follow the new player instance
-                                                 //virtualCamera.LookAt = player.transform; // Set the camera to look at the new player instance
+
+        //if (spawnEffectPrefab != null)
+        //{
+        //    GameObject spawnEffect = Instantiate(spawnEffectPrefab, respawnPoint.position, Quaternion.identity);
+        //    Destroy(spawnEffect, 200f); // Destroy the particle system after 2 seconds
+        //    Debug.Log("Spawn effect instantiated at: " + respawnPoint.position);
+        //}
+        
+        //virtualCamera.LookAt = player.transform; // Set the camera to look at the new player instance
 
         OnPlayerRespawned?.Invoke(player.transform);
     }
