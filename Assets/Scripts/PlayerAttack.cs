@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController playerController;
     private float cooldownTimer = Mathf.Infinity;
 
+    [SerializeField] private AudioClip sfxPlayerShoot;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -23,7 +25,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && cooldownTimer >= attackCooldown && playerController.canAttack())
         {
-            //Debug.Log("attack");
+            //Debug.Log("attack");  
             Attack();
         }
         cooldownTimer += Time.deltaTime;
@@ -31,17 +33,18 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
+        SoundManager soundManager = Object.FindFirstObjectByType<SoundManager>(); // Updated to use FindFirstObjectByType  
+        soundManager.PlayPlayerSfx(sfxPlayerShoot);
         anim.SetTrigger("shoot");
         cooldownTimer = 0f;
 
         bulletInst = Instantiate(bullet, firePoint.position, Quaternion.identity);
 
-        //Debug.Log("Laser activated at position: " + firePoint.position);
+        //Debug.Log("Laser activated at position: " + firePoint.position);  
         float direction = playerController.facingRight ? 1f : -1f;
-        //Debug.Log("Laser direction: " + direction);
+        //Debug.Log("Laser direction: " + direction);  
         bulletInst.GetComponent<Projectile>().SetDirectionAndSpeed(direction);
-        //Messenger<float>.Broadcast(GameEvent.PlayerAttack, direction);
+        //Messenger<float>.Broadcast(GameEvent.PlayerAttack, direction);  
     }
-
 }
 

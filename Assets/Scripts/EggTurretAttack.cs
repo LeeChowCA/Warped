@@ -11,6 +11,7 @@ public class EggTurretAttack : MonoBehaviour
     private Animator anim;
     private float cooldownTimer = Mathf.Infinity;
     private EggTurretController eggTurretController;
+    [SerializeField] private AudioClip eggTurretSfx;
 
     private void Awake()
     {
@@ -30,6 +31,10 @@ public class EggTurretAttack : MonoBehaviour
 
     private void Attack()
     {
+
+        SoundManager soundManager = Object.FindFirstObjectByType<SoundManager>(); // Updated to use FindFirstObjectByType
+        soundManager.PlayEggTurretSfx(eggTurretSfx);
+
         anim.SetTrigger("shoot");
         cooldownTimer = 0f;
 

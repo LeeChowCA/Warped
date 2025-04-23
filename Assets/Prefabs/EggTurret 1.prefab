@@ -177,6 +177,7 @@ MonoBehaviour:
   attackCooldown: 3
   firePoint: {fileID: 5677301908537211725}
   bullet: {fileID: 9040577627202334746, guid: 0421ce9b5cf04bd4dbabda3a9428db6d, type: 3}
+  eggTurretSfx: {fileID: 8300000, guid: 11659cc734d142c45ade5af616b6323a, type: 3}
 --- !u!70 &-6528151225311196245
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

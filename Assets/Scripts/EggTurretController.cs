@@ -7,6 +7,8 @@ public class EggTurretController : MonoBehaviour
     public float detectionRange = 10f;
     public LayerMask detectionLayer;
 
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
